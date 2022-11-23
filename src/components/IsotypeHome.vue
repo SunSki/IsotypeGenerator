@@ -1,7 +1,6 @@
 <template>
 <h1>Isotype</h1>
 
-<!-- <IsotypeRow :img-src="demoUrlVue" :img-num="3.1" :devide-num="devideNum" :resize-width="resizeWidth" :height-gap="heightGap" :width-gap="widthGap" /> -->
 <div v-for="index of isotypeData[0].nums.length" :key="index" class="isotypeBody">
     <div v-for="num_index of isotypeData.length" :key="num_index">
         <IsotypeRow :img-src="isotypeData[num_index-1].url" :img-num="isotypeData[num_index-1].nums[index-1]" :devide-num="holdDevideNum" :resize-width="resizeWidth" :height-gap="heightGap" :width-gap="widthGap" />

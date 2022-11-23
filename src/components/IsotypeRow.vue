@@ -55,7 +55,12 @@ export default defineComponent({
             type: Number,
             required: false,
             default: 0,
-        }
+        },
+        rowDirection: {
+            type: String,
+            required: false,
+            default: 'R',
+        },
     },
     setup(props) {
         const imgWidth = ref < number > (0)
@@ -81,6 +86,39 @@ export default defineComponent({
             return Number(props.imgNum) - Math.floor(props.imgNum)
         }
 
+        const compRowDirection = () => {
+            if (props.rowDirection == "R") {
+                return "row"
+            } else if (props.rowDirection == "L") {
+                return "row-reverse"
+            } else {
+                console.log("ERROR: row direction must be 'R' or 'L'")
+                return "row"
+            }
+        }
+
+        const compItemAlign = () => {
+            if (props.rowDirection == "R") {
+                return "left"
+            } else if (props.rowDirection == "L") {
+                return "right"
+            } else {
+                console.log("ERROR: row direction must be 'R' or 'L'")
+                return "left"
+            }
+        }
+
+        const compCropPosition = () => {
+            if (props.rowDirection == "R") {
+                return "0 100%"
+            } else if (props.rowDirection == "L") {
+                return "100% 100%"
+            } else {
+                console.log("ERROR: row direction must be 'R' or 'L'")
+                return "0 100%"
+            }
+        }
+
         const resizeImgWidth = () => {
             return (addPx(Number(props.resizeWidth)))
         }
@@ -97,6 +135,9 @@ export default defineComponent({
         return {
             imgNumLimit,
             compScaleDecimal,
+            compRowDirection,
+            compItemAlign,
+            compCropPosition,
             resizeImgWidth,
             resizeImgHeight,
             resizeImgCropWidth,
@@ -110,7 +151,7 @@ export default defineComponent({
 <style lang="scss">
 .imglist {
     display: flex;
-    flex-direction: row;
+    flex-direction: v-bind(compRowDirection());
 }
 
 .imglist-item {
@@ -120,7 +161,7 @@ export default defineComponent({
 .img-item {
     height: v-bind(resizeImgHeight());
     margin-bottom: v-bind(addPx(heightGap));
-    text-align: left;
+    text-align: v-bind(compItemAlign());
 }
 
 .scaleImg {
@@ -131,7 +172,7 @@ export default defineComponent({
 .scaleImgCrop {
     width: v-bind(resizeImgCropWidth());
     height: v-bind(resizeImgHeight());
-    object-position: 0 100%;
+    object-position: v-bind(compCropPosition());
     object-fit: cover;
 }
 </style>

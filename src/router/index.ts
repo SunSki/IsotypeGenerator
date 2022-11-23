@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Isotype from '../components/IsotypeHome.vue'
+import Isotype from '../components/IsotypeDouble.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
