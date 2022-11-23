@@ -9,6 +9,7 @@
             </div>
         </div>
     </div>
+    <div class="isotypeSeparater"></div>
     <div class="isotypeBodyRight">
         <div v-for="index of isotypeData[0].nums.length" :key="index" class="isotypeBodySection isotypeBodySectionRight">
             <div v-for="num_index of isotypeData.length" :key="num_index" class="isotypeBodyItem isotypeBodyItemRight">
@@ -82,6 +83,8 @@
     <div>height gap: <input v-model="heightGap" type="text" maxlength="5" oninput="value = value.replace(/[^0-9-]+/i,'');"></div>
     <div>group width gap: <input v-model="groupWidthGap" type="text" maxlesngth="5" oninput="value = value.replace(/[^0-9-]+/i,'');"></div>
     <div>group height gap: <input v-model="groupHeightGap" type="text" maxlength="5" oninput="value = value.replace(/[^0-9-]+/i,'');"></div>
+    <div>borderWeight: <input v-model="borderWeight" type="text" maxlesngth="5" oninput="value = value.replace(/[^0-9-]+/i,'');"></div>
+    <div>borderMargin: <input v-model="borderMargin" type="text" maxlength="5" oninput="value = value.replace(/[^0-9-]+/i,'');"></div>
 </div>
 </template>
 
@@ -102,10 +105,14 @@ export default defineComponent({
         const devideNum = ref < number > (2)
         const holdDevideNum = ref < number > (2)
         const resizeWidth = ref < number > (50)
+
         const heightGap = ref < number > (0)
         const widthGap = ref < number > (0)
         const groupHeightGap = ref < number > (0)
         const groupWidthGap = ref < number > (0)
+
+        const borderWeight = ref < number > (2)
+        const borderMargin = ref < number > (2)
 
         const demoUrlVue = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
         const demoUrlAngular = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/500px-Angular_full_color_logo.svg.png"
@@ -183,6 +190,10 @@ export default defineComponent({
             isoData.splice(index, 1)
         }
 
+        const compBorder = () => {
+            return borderWeight.value + "px solid #000000"
+        }
+
         const addPx = (number:number) => {
             return number + "px"
         }
@@ -195,6 +206,8 @@ export default defineComponent({
             heightGap,
             groupHeightGap,
             groupWidthGap,
+            borderWeight,
+            borderMargin,
             isotypeData,
             isotypeDataLeft,
             leftDirection,
@@ -202,6 +215,7 @@ export default defineComponent({
             addDataCol,
             remDataNumsRow,
             remDataNumsColumn,
+            compBorder,
             addPx,
         }
     }
@@ -213,8 +227,11 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
 }
-
-
+.isotypeSeparater {
+    border-left:v-bind(compBorder());
+    margin-right: v-bind(addPx(borderMargin));
+    margin-left: v-bind(addPx(borderMargin));
+}
 .isotypeBodySection {
     display: flex;
     margin-bottom: v-bind(addPx(groupHeightGap));

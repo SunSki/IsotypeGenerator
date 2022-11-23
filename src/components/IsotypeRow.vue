@@ -22,6 +22,7 @@ import {
     defineComponent,
     ref,
     onMounted,
+    onBeforeUpdate,
 } from 'vue';
 
 export default defineComponent({
@@ -68,7 +69,7 @@ export default defineComponent({
 
         const imgNumLimit = 50
 
-        onMounted(() => {
+        onBeforeUpdate(() => {
             getImgInfo()
         })
 
